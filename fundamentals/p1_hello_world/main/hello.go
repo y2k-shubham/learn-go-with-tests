@@ -2,17 +2,35 @@ package main
 
 import "fmt"
 
-const englishHelloPrefix string = "Hello"
-const world string = "World"
+const (
+	English = 1
+	Spanish = 2
+)
 
-func Hello(name string) string {
-	if name == "" {
-		name = world
+var langGreetingMap = map[int]string{
+	English: "Hello",
+	Spanish: "Hola",
+}
+var langWorldMap = map[int]string{
+	English: "World",
+	Spanish: "Mundo",
+}
+
+func Hello(name string, lang int) string {
+	if _, ok := langGreetingMap[lang]; !ok {
+		lang = English
 	}
-	return fmt.Sprintf("%s %s!", englishHelloPrefix, name)
+	greeting := langGreetingMap[lang]
+	if name == "" {
+		name = langWorldMap[lang]
+	}
+
+	return fmt.Sprintf("%s %s!", greeting, name)
 }
 
 func main() {
-	fmt.Println(Hello("Puchi"))
-	fmt.Println(Hello(""))
+	fmt.Println(Hello("Puchi", 0))
+	fmt.Println(Hello("Monchi", Spanish))
+	fmt.Println(Hello("", Spanish))
+	fmt.Println(Hello("", 0))
 }

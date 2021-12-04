@@ -17,13 +17,19 @@ func TestHello(t *testing.T) {
 	}
 
 	t.Run("greeting Hello to people", func(t *testing.T) {
-		var got string = Hello("Chris")
+		var got string = Hello("Chris", English)
 		var want string = "Hello Chris!"
 		assertCorrectMsg(t, got, want)
 	})
 
 	t.Run("saying Hello World when there's no person to greet", func(t *testing.T) {
-		var got string = Hello("")
+		var got string = Hello("", Spanish)
+		var want string = "Hola Mundo!"
+		assertCorrectMsg(t, got, want)
+	})
+
+	t.Run("falling back to English when there's no language specified", func(t *testing.T) {
+		var got string = Hello("", 0)
 		var want string = "Hello World!"
 		assertCorrectMsg(t, got, want)
 	})
