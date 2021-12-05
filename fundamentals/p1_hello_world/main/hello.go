@@ -5,15 +5,18 @@ import "fmt"
 const (
 	English = 1
 	Spanish = 2
+	French  = 3
 )
 
 var langGreetingMap = map[int]string{
 	English: "Hello",
 	Spanish: "Hola",
+	French:  "Bonjour",
 }
 var langWorldMap = map[int]string{
 	English: "World",
 	Spanish: "Mundo",
+	French:  "Monde",
 }
 
 func Hello(name string, lang int) string {

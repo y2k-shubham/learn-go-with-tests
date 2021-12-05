@@ -22,6 +22,12 @@ func TestHello(t *testing.T) {
 		assertCorrectMsg(t, got, want)
 	})
 
+	t.Run("greeting in different language", func(t *testing.T) {
+		var got string = Hello("Tulika", French)
+		var want string = "Bonjour Tulika!"
+		assertCorrectMsg(t, got, want)
+	})
+
 	t.Run("saying Hello World when there's no person to greet", func(t *testing.T) {
 		var got string = Hello("", Spanish)
 		var want string = "Hola Mundo!"
