@@ -19,3 +19,9 @@ func TestRepeat(t *testing.T) {
 		t.Errorf("got %s but expected %s", got, want)
 	}
 }
+
+func BenchmarkRepeat(b *testing.B) {
+	for i := 1; i <= b.N; i++ {
+		Repeat("s")
+	}
+}
