@@ -36,12 +36,9 @@ func World(lang int) string {
 }
 
 func Hello(name string, lang int) string {
-	if _, ok := langGreetingMap[lang]; !ok {
-		lang = English
-	}
-	greeting := langGreetingMap[lang]
+	greeting := Greeting(lang)
 	if name == "" {
-		name = langWorldMap[lang]
+		name = World(lang)
 	}
 
 	return fmt.Sprintf("%s %s!", greeting, name)
@@ -50,6 +47,6 @@ func Hello(name string, lang int) string {
 func main() {
 	fmt.Println(Hello("Puchi", 0))
 	fmt.Println(Hello("Monchi", Spanish))
-	fmt.Println(Hello("", Spanish))
+	fmt.Println(Hello("", French))
 	fmt.Println(Hello("", 0))
 }
