@@ -27,6 +27,14 @@ func Greeting(lang int) string {
 	return greeting
 }
 
+func World(lang int) string {
+	if _, ok := langGreetingMap[lang]; !ok {
+		lang = English
+	}
+	world := langWorldMap[lang]
+	return world
+}
+
 func Hello(name string, lang int) string {
 	if _, ok := langGreetingMap[lang]; !ok {
 		lang = English

@@ -39,6 +39,32 @@ func TestGreeting(t *testing.T) {
 	})
 }
 
+func TestWorld(t *testing.T) {
+	t.Run("world in English", func(t *testing.T) {
+		var got string = World(English)
+		var want string = "World"
+		assertHelper(t, got, want)
+	})
+
+	t.Run("world in Spanish", func(t *testing.T) {
+		var got string = World(Spanish)
+		var want string = "Mundo"
+		assertHelper(t, got, want)
+	})
+
+	t.Run("world in French", func(t *testing.T) {
+		var got string = World(French)
+		var want string = "Monde"
+		assertHelper(t, got, want)
+	})
+
+	t.Run("world in unknown lang", func(t *testing.T) {
+		var got string = World(0)
+		var want string = "World"
+		assertHelper(t, got, want)
+	})
+}
+
 func TestHello(t *testing.T) {
 	t.Run("greeting Hello to people", func(t *testing.T) {
 		var got string = Hello("Chris", English)
