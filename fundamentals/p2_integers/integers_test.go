@@ -1,6 +1,15 @@
 package p2_integers
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func ExampleAdd() {
+	sum := Add(5, 7)
+	fmt.Println(sum)
+	// Output: 12
+}
 
 func TestAdder(t *testing.T) {
 	sum := Add(2, 4)
