@@ -19,6 +19,14 @@ var langWorldMap = map[int]string{
 	French:  "Monde",
 }
 
+func Greeting(lang int) string {
+	if _, ok := langGreetingMap[lang]; !ok {
+		lang = English
+	}
+	greeting := langGreetingMap[lang]
+	return greeting
+}
+
 func Hello(name string, lang int) string {
 	if _, ok := langGreetingMap[lang]; !ok {
 		lang = English
