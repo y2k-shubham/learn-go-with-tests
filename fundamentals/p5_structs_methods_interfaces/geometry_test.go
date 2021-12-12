@@ -14,3 +14,10 @@ func TestPerimeter(t *testing.T) {
 
 	assertHelper(t, got, want)
 }
+
+func TestArea(t *testing.T) {
+	got := Area(11, 9)
+	want := float32(99)
+
+	assertHelper(t, got, want)
+}
