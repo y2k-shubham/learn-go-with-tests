@@ -3,27 +3,29 @@ package p6_pointers_n_errors
 import "testing"
 
 func TestWallet(t *testing.T) {
-	t.Run("Deposit", func(t *testing.T) {
-		wallet := Wallet{}
-		wallet.Deposit(10)
-
+	checkBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
 		got := wallet.Balance()
-		want := Bitcoin(10)
 
 		if got != want {
-			t.Errorf("got %s, want %s", got, want)
+			t.Errorf("in %#v, got %s, want %s", wallet, got, want)
 		}
+	}
+
+	t.Run("Deposit", func(t *testing.T) {
+		wallet := Wallet{}
+
+		wallet.Deposit(10)
+		want := Bitcoin(10)
+
+		checkBalance(t, wallet, want)
 	})
 
 	t.Run("Withdraw", func(t *testing.T) {
 		wallet := Wallet{balance: Bitcoin(20)}
-		wallet.Withdraw(5)
 
-		got := wallet.Balance()
+		wallet.Withdraw(5)
 		want := Bitcoin(15)
 
-		if got != want {
-			t.Errorf("got %s, want %s", got, want)
-		}
+		checkBalance(t, wallet, want)
 	})
 }
