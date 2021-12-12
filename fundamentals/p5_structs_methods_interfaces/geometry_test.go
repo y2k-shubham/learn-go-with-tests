@@ -1,10 +1,13 @@
 package p5_structs_methods_interfaces
 
-import "testing"
+import (
+	"learn-go-with-tests/utils"
+	"testing"
+)
 
 func assertHelper(t testing.TB, got, want float32) {
 	// shouldn't use this direct floating point
-	if want != got {
+	if !utils.AreEqual(got, want) {
 		t.Errorf("got %.2f, want %.2f", got, want)
 	}
 }
