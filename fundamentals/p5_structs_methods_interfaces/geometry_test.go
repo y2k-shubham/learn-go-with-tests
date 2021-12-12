@@ -5,20 +5,13 @@ import (
 	"testing"
 )
 
-func assertHelper(t testing.TB, got, want float32) {
-	t.Helper()
-
-	// shouldn't use this direct floating point
-	if !utils.AreEqual(got, want) {
-		t.Errorf("got %g, want %g", got, want)
-	}
-}
-
 func TestPerimeter(t *testing.T) {
 	checkPerimeter := func(t testing.TB, shape Shape, want float32) {
 		t.Helper()
 		got := shape.Perimeter()
-		assertHelper(t, got, want)
+		if !utils.AreEqual(got, want) {
+			t.Errorf("%#v got %g, want %g", shape, got, want)
+		}
 	}
 
 	t.Run("Rectangle", func(t *testing.T) {
@@ -39,7 +32,10 @@ func TestArea(t *testing.T) {
 	checkArea := func(t testing.TB, shape Shape, want float32) {
 		t.Helper()
 		got := shape.Area()
-		assertHelper(t, got, want)
+
+		if !utils.AreEqual(got, want) {
+			t.Errorf("%#v got %g, want %g", shape, got, want)
+		}
 	}
 
 	t.Run("Rectangle", func(t *testing.T) {
