@@ -4,7 +4,7 @@ import "testing"
 
 func assertHelper(t testing.TB, got, want float32) {
 	if want != got {
-		t.Errorf("got %f, want %f", got, want)
+		t.Errorf("got %.2f, want %.2f", got, want)
 	}
 }
 
