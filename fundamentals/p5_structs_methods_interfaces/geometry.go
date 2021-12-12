@@ -2,6 +2,12 @@ package p5_structs_methods_interfaces
 
 import "math"
 
+type Shape interface {
+	Perimeter() float32
+
+	Area() float32
+}
+
 type Rectangle struct {
 	Length float32
 	Width  float32
