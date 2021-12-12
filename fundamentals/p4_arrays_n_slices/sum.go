@@ -27,10 +27,15 @@ func SumAllTails(slcs [][]int) []int {
 		return []int{}
 	}
 
-	sum := make([]int, len(slcs))
+	tailSums := make([]int, len(slcs))
 	for idx, slc := range slcs {
-		sum[idx] = Sum(slc[1:])
+		tailSum := 0
+		if len(slc) > 1 {
+			tailSum = Sum(slc[1:])
+		}
+
+		tailSums[idx] = tailSum
 	}
 
-	return sum
+	return tailSums
 }
