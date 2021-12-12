@@ -1,8 +1,11 @@
 package p4_arrays_n_slices
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func assertHelper(t testing.TB, got, want int, slc []int) {
+func assertHelper1(t testing.TB, got, want int, slc []int) {
 	t.Helper()
 
 	if got != want {
@@ -17,6 +20,52 @@ func TestSum(t *testing.T) {
 		got := Sum(arr)
 		want := 20
 
-		assertHelper(t, got, want, arr)
+		assertHelper1(t, got, want, arr)
+	})
+}
+
+func assertHelper2(t testing.TB, got, want []int, slc [][]int) {
+	t.Helper()
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v, given %v", got, want, slc)
+	}
+}
+
+func TestSumAll(t *testing.T) {
+	t.Run("Varying no of slices: 0 slices", func(t *testing.T) {
+		slc := [][]int{}
+
+		got := SumAll(slc)
+		want := []int{}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 1 slice", func(t *testing.T) {
+		slc := [][]int{[]int{1, 2}}
+
+		got := SumAll(slc)
+		want := []int{3}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 2 slices", func(t *testing.T) {
+		slc := [][]int{[]int{0, 9, -5}, []int{3}}
+
+		got := SumAll(slc)
+		want := []int{4, 3}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 3 slices", func(t *testing.T) {
+		slc := [][]int{[]int{1, 2}, []int{0, 9, -5}, []int{3}}
+
+		got := SumAll(slc)
+		want := []int{3, 4, 3}
+
+		assertHelper2(t, got, want, slc)
 	})
 }
