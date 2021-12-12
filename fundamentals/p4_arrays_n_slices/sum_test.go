@@ -69,3 +69,41 @@ func TestSumAll(t *testing.T) {
 		assertHelper2(t, got, want, slc)
 	})
 }
+
+func TestSumAllTails(t *testing.T) {
+	t.Run("Varying no of slices: 0 slices", func(t *testing.T) {
+		slc := [][]int{}
+
+		got := SumAllTails(slc)
+		want := []int{}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 1 slice", func(t *testing.T) {
+		slc := [][]int{[]int{1, 2}}
+
+		got := SumAllTails(slc)
+		want := []int{2}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 2 slices", func(t *testing.T) {
+		slc := [][]int{[]int{0, 9, -5}, []int{3}}
+
+		got := SumAllTails(slc)
+		want := []int{4, 0}
+
+		assertHelper2(t, got, want, slc)
+	})
+
+	t.Run("Varying no of slices: 3 slices", func(t *testing.T) {
+		slc := [][]int{[]int{1, 2}, []int{0, 9, -5}, []int{3}}
+
+		got := SumAllTails(slc)
+		want := []int{2, 4, 0}
+
+		assertHelper2(t, got, want, slc)
+	})
+}
