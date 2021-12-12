@@ -8,24 +8,46 @@ import (
 func assertHelper(t testing.TB, got, want float32) {
 	// shouldn't use this direct floating point
 	if !utils.AreEqual(got, want) {
-		t.Errorf("got %.2f, want %.2f", got, want)
+		t.Errorf("got %g, want %g", got, want)
 	}
 }
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{11, 9}
+	t.Run("Rectangle", func(t *testing.T) {
+		rectangle := Rectangle{11, 9}
 
-	got := Perimeter(rectangle)
-	want := float32(40)
+		got := rectangle.Perimeter()
+		want := float32(40)
 
-	assertHelper(t, got, want)
+		assertHelper(t, got, want)
+	})
+
+	t.Run("Circle", func(t *testing.T) {
+		circle := Circle{10}
+
+		got := circle.Perimeter()
+		want := float32(62.831856)
+
+		assertHelper(t, got, want)
+	})
 }
 
 func TestArea(t *testing.T) {
-	rectangle := Rectangle{11, 9}
+	t.Run("Rectangle", func(t *testing.T) {
+		rectangle := Rectangle{11, 9}
 
-	got := Area(rectangle)
-	want := float32(99)
+		got := rectangle.Area()
+		want := float32(99)
 
-	assertHelper(t, got, want)
+		assertHelper(t, got, want)
+	})
+
+	t.Run("Circle", func(t *testing.T) {
+		circle := Circle{10}
+
+		got := circle.Area()
+		want := float32(314.159265359)
+
+		assertHelper(t, got, want)
+	})
 }
