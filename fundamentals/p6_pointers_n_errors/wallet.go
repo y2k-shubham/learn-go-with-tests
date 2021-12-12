@@ -1,6 +1,9 @@
 package p6_pointers_n_errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Bitcoin int
 
@@ -16,8 +19,13 @@ func (w *Wallet) Deposit(btc Bitcoin) {
 	w.balance += btc
 }
 
-func (w *Wallet) Withdraw(btc Bitcoin) {
+func (w *Wallet) Withdraw(btc Bitcoin) error {
+	if w.balance < btc {
+		return errors.New(fmt.Sprintf("Insufficient balance, available %s, withdrawing %s", w.Balance(), btc))
+	}
+
 	w.balance -= btc
+	return nil
 }
 
 func (w *Wallet) Balance() Bitcoin {
