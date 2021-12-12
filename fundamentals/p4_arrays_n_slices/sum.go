@@ -21,3 +21,16 @@ func SumAll(slcs [][]int) []int {
 
 	return sum
 }
+
+func SumAllTails(slcs [][]int) []int {
+	if len(slcs) == 0 {
+		return []int{}
+	}
+
+	sum := make([]int, len(slcs))
+	for idx, slc := range slcs {
+		sum[idx] = Sum(slc[1:])
+	}
+
+	return sum
+}
