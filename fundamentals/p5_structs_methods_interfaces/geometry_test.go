@@ -5,20 +5,13 @@ import (
 	"testing"
 )
 
-func assertHelper(t testing.TB, got, want float32) {
-	t.Helper()
-
-	// shouldn't use this direct floating point
-	if !utils.AreEqual(got, want) {
-		t.Errorf("got %g, want %g", got, want)
-	}
-}
-
 func TestPerimeter(t *testing.T) {
 	checkPerimeter := func(t testing.TB, shape Shape, want float32) {
 		t.Helper()
 		got := shape.Perimeter()
-		assertHelper(t, got, want)
+		if !utils.AreEqual(got, want) {
+			t.Errorf("%#v got %g, want %g", shape, got, want)
+		}
 	}
 
 	t.Run("Rectangle", func(t *testing.T) {
@@ -35,10 +28,14 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
+	// normal tests
 	checkArea := func(t testing.TB, shape Shape, want float32) {
 		t.Helper()
 		got := shape.Area()
-		assertHelper(t, got, want)
+
+		if !utils.AreEqual(got, want) {
+			t.Errorf("%#v got %g, want %g", shape, got, want)
+		}
 	}
 
 	t.Run("Rectangle", func(t *testing.T) {
@@ -52,4 +49,18 @@ func TestArea(t *testing.T) {
 		want := float32(314.159265359)
 		checkArea(t, circle, want)
 	})
+
+	// table tests
+	areaTests := []struct {
+		shape Shape
+		want  float32
+	}{
+		{shape: Rectangle{11, 9}, want: 99},
+		{shape: Circle{10}, want: 314.159265359},
+		{shape: Triangle{3, 14}, want: 21},
+	}
+
+	for _, test := range areaTests {
+		checkArea(t, test.shape, test.want)
+	}
 }
