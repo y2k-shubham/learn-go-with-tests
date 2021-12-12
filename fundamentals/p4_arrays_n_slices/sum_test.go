@@ -80,6 +80,15 @@ func TestSumAllTails(t *testing.T) {
 		assertHelper2(t, got, want, slc)
 	})
 
+	t.Run("Varying no of slices: 1 empty slice", func(t *testing.T) {
+		slc := [][]int{[]int{}}
+
+		got := SumAllTails(slc)
+		want := []int{0}
+
+		assertHelper2(t, got, want, slc)
+	})
+
 	t.Run("Varying no of slices: 1 slice", func(t *testing.T) {
 		slc := [][]int{[]int{1, 2}}
 
