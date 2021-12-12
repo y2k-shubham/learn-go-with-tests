@@ -7,6 +7,7 @@ import (
 
 func assertHelper(t testing.TB, got, want bool, f1, f2 float32) {
 	if got != want {
+		// format specifier for boolean https://stackoverflow.com/a/7059760/3679900
 		t.Errorf("got %t, want %t for f1=%.2f, f2=%.2f", got, want, f1, f2)
 	}
 }
