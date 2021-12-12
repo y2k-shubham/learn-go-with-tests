@@ -1,13 +1,25 @@
 package p6_pointers_n_errors
 
-type Wallet struct {
-	balance int
+import "fmt"
+
+type Bitcoin int
+
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
 }
 
-func (w *Wallet) Deposit(btc int) {
+type Wallet struct {
+	balance Bitcoin
+}
+
+func (w *Wallet) Deposit(btc Bitcoin) {
 	w.balance += btc
 }
 
-func (w *Wallet) Balance() int {
+func (w *Wallet) Withdraw(btc Bitcoin) {
+	w.balance -= btc
+}
+
+func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
