@@ -35,6 +35,7 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
+	// normal tests
 	checkArea := func(t testing.TB, shape Shape, want float32) {
 		t.Helper()
 		got := shape.Area()
@@ -52,4 +53,17 @@ func TestArea(t *testing.T) {
 		want := float32(314.159265359)
 		checkArea(t, circle, want)
 	})
+
+	// table tests
+	areaTests := []struct {
+		shape Shape
+		want  float32
+	}{
+		{Rectangle{11, 9}, 99},
+		{Circle{10}, 314.159265359},
+	}
+
+	for _, test := range areaTests {
+		checkArea(t, test.shape, test.want)
+	}
 }
