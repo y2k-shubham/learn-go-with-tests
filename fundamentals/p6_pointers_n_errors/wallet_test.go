@@ -3,7 +3,7 @@ package p6_pointers_n_errors
 import "testing"
 
 func TestWallet(t *testing.T) {
-	checkBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
+	assertBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
 		t.Helper()
 
 		got := wallet.Balance()
@@ -13,22 +13,39 @@ func TestWallet(t *testing.T) {
 		}
 	}
 
+	assertNoError := func(t testing.TB, err error) {
+		t.Helper()
+
+		if err != nil {
+			t.Errorf("got error %v when didnt expect one", err)
+		}
+	}
+
+	assertError := func(t testing.TB, err error) {
+		t.Helper()
+
+		if err == nil {
+			t.Errorf("wanted an error but didnt get one")
+		}
+	}
+
 	t.Run("Deposit", func(t *testing.T) {
 		wallet := Wallet{}
 
 		wallet.Deposit(10)
 		want := Bitcoin(10)
 
-		checkBalance(t, wallet, want)
+		assertBalance(t, wallet, want)
 	})
 
 	t.Run("Withdraw: normal", func(t *testing.T) {
 		wallet := Wallet{balance: Bitcoin(20)}
 
-		wallet.Withdraw(5)
+		err := wallet.Withdraw(5)
 		want := Bitcoin(15)
 
-		checkBalance(t, wallet, want)
+		assertBalance(t, wallet, want)
+		assertNoError(t, err)
 	})
 
 	t.Run("Withdraw: insufficient balance", func(t *testing.T) {
@@ -38,10 +55,7 @@ func TestWallet(t *testing.T) {
 		err := wallet.Withdraw(Bitcoin(100))
 		want := initialBalance
 
-		checkBalance(t, wallet, want)
-
-		if err == nil {
-			t.Errorf("wanted an error but didnt get one")
-		}
+		assertBalance(t, wallet, want)
+		assertError(t, err)
 	})
 }
