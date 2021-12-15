@@ -1,6 +1,9 @@
 package p6_pointers_n_errors
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestWallet(t *testing.T) {
 	assertBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
@@ -17,15 +20,18 @@ func TestWallet(t *testing.T) {
 		t.Helper()
 
 		if err != nil {
-			t.Errorf("got error %v when didnt expect one", err)
+			t.Fatal(fmt.Sprintf("got error %v when didnt expect one", err))
 		}
 	}
 
-	assertError := func(t testing.TB, err error) {
+	assertError := func(t testing.TB, gotErr error, wantMsg string) {
 		t.Helper()
 
-		if err == nil {
-			t.Errorf("wanted an error but didnt get one")
+		if gotErr == nil {
+			t.Fatal("wanted an error but didnt get one")
+		}
+		if gotErr.Error() != wantMsg {
+			t.Errorf("got %q, want %q", gotErr.Error(), wantMsg)
 		}
 	}
 
@@ -52,10 +58,11 @@ func TestWallet(t *testing.T) {
 		initialBalance := Bitcoin(20)
 		wallet := Wallet{balance: initialBalance}
 
-		err := wallet.Withdraw(Bitcoin(100))
+		withdrawalBalance := Bitcoin(100)
+		err := wallet.Withdraw(withdrawalBalance)
 		want := initialBalance
 
 		assertBalance(t, wallet, want)
-		assertError(t, err)
+		assertError(t, err, fmt.Sprintf("Insufficient balance, available %s, withdrawing %s", initialBalance, withdrawalBalance))
 	})
 }
