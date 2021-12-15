@@ -63,6 +63,6 @@ func TestWallet(t *testing.T) {
 		want := initialBalance
 
 		assertBalance(t, wallet, want)
-		assertError(t, err, fmt.Sprintf("Insufficient balance, available %s, withdrawing %s", initialBalance, withdrawalBalance))
+		assertError(t, err, getInsuffBalanceErrors(withdrawalBalance, initialBalance).Error())
 	})
 }
