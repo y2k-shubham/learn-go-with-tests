@@ -21,11 +21,15 @@ func (w *Wallet) Deposit(btc Bitcoin) {
 
 func (w *Wallet) Withdraw(btc Bitcoin) error {
 	if w.balance < btc {
-		return errors.New(fmt.Sprintf("Insufficient balance, available %s, withdrawing %s", w.Balance(), btc))
+		return getInsuffBalanceErrors(btc, w.Balance())
 	}
 
 	w.balance -= btc
 	return nil
+}
+
+func getInsuffBalanceErrors(required, available Bitcoin) error {
+	return errors.New(fmt.Sprintf("Insufficient balance, available %s, required %s", available, required))
 }
 
 func (w *Wallet) Balance() Bitcoin {
